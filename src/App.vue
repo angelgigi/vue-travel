@@ -11,5 +11,5 @@ export default {
 </script>
 
 <style>
-
+ * { touch-action: pan-y; } 
 </style>
