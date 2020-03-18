@@ -1,29 +1,28 @@
 <template>
   <div>
-    <detail-banner
-      :sightName="sightName"
-      :bannerImg="bannerImg"
-      :bannerImgs="gallaryImgs"
-    ></detail-banner>
+    <detail-banner :sightName="sightName" :bannerImg="bannerImg" :bannerImgs="gallaryImgs"></detail-banner>
     <detail-header></detail-header>
-    <detail-list></detail-list>
-  </div>  
+
+    <div class="content">
+      <detail-list :list="list"></detail-list>
+    </div>
+  </div>
 </template>
 
 <script>
-import DetailHeader from './components/header'
-import DetailBanner from './components/banner'
-import DetailList from './components/list'
-import axios from 'axios'
+import DetailHeader from "./components/header";
+import DetailBanner from "./components/banner";
+import DetailList from "./components/list";
+import axios from "axios";
 
 export default {
-  data () {
+  data() {
     return {
-      sightName: '',
-      bannerImg: '',
+      sightName: "",
+      bannerImg: "",
       gallaryImgs: [],
       list: []
-    }
+    };
   },
   components: {
     DetailHeader,
@@ -31,32 +30,34 @@ export default {
     DetailList
   },
   methods: {
-    getDetailInfo () {
-      axios.get('/api/detail.json',{
-        params: {
-          id: this.$route.params.id
-        }
-      }).then(this.handleGetDataSucc)
+    getDetailInfo() {
+      axios
+        .get("/api/detail.json", {
+          params: {
+            id: this.$route.params.id
+          }
+        })
+        .then(this.handleGetDataSucc);
     },
-    handleGetDataSucc (res) {
-      res = res.data
+    handleGetDataSucc(res) {
+      res = res.data;
       if (res.ret && res.data) {
-        const data = res.data
-        this.sightName = data.sightName
-        this.bannerImg = data.bannerImg
-        this.gallaryImgs = data.gallaryImgs
-        this.list = data.categoryList
+        const data = res.data;
+        this.sightName = data.sightName;
+        this.bannerImg = data.bannerImg;
+        this.gallaryImgs = data.gallaryImgs;
+        this.list = data.categoryList;
       }
     }
-
   },
   mounted() {
-    this.getDetailInfo()
+    this.getDetailInfo();
   }
-}
+};
 </script>
 
 <style lang="stylus" scoped>
-  .content
-    height: 50rem
+.content {
+  height: 50rem;
+}
 </style>
